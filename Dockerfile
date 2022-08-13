@@ -34,4 +34,4 @@ RUN edkrepo manifest-repos add nvidia https://github.com/NVIDIA/edk2-edkrepo-man
 RUN edkrepo clone nvidia-uefi NVIDIA-Jetson rel-34
 RUN cd nvidia-uefi
 
-ENTRYPOINT [ "/bin/bash edkrepo/nvidia-uefi" ]
+CMD [ "/bin/bash" ]
