@@ -27,7 +27,7 @@ RUN mkdir edkrepo
 RUN cd edkrepo
 RUN wget https://github.com/tianocore/edk2-edkrepo/releases/download/edkrepo-v2.1.2/edkrepo-2.1.2.tar.gz
 RUN tar xvf edkrepo-2.1.2.tar.gz
-RUN ./install.py
+RUN ./install.py --user root
 
 # Grab NVIDIA manifest and setup env
 RUN edkrepo manifest-repos add nvidia https://github.com/NVIDIA/edk2-edkrepo-manifest.git main nvidia
