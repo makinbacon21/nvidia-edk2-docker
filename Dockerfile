@@ -24,7 +24,7 @@ RUN git config --global user.email "default@email.com"
 
 # Setup edkrepo
 RUN mkdir edkrepo
-RUN cd edkrepo
+WORKDIR /edkrepo
 RUN wget https://github.com/tianocore/edk2-edkrepo/releases/download/edkrepo-v2.1.2/edkrepo-2.1.2.tar.gz
 RUN tar xvf edkrepo-2.1.2.tar.gz
 RUN ./install.py --user root --no-prompt
@@ -32,6 +32,6 @@ RUN ./install.py --user root --no-prompt
 # Grab NVIDIA manifest and setup env
 RUN edkrepo manifest-repos add nvidia https://github.com/NVIDIA/edk2-edkrepo-manifest.git main nvidia
 RUN edkrepo clone nvidia-uefi NVIDIA-Jetson rel-34
-RUN cd nvidia-uefi
+WORKDIR /edkrepo/nvidia-uefi
 
 CMD [ "/bin/bash" ]
