@@ -19,8 +19,8 @@ RUN apt update
 RUN apt install -y mono-devel
 
 # Config git just for kicks
-RUN git config user.name "Default Name"
-RUN git config user.email "default@email.com"
+RUN git config --global user.name "Default Name"
+RUN git config --global user.email "default@email.com"
 
 # Setup edkrepo
 RUN mkdir edkrepo
