@@ -11,15 +11,15 @@ ENV TZ=Etc/UTC
 
 # Get deps
 RUN apt update
-RUN apt upgrade -y
-RUN apt install -y build-essential uuid-dev git gcc python3 python3-setuptools python3-pip virtualenv wget \
+RUN DEBIAN_FRONTEND=noninteractive apt upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt install -y build-essential uuid-dev git gcc python3 python3-setuptools python3-pip virtualenv wget \
       gcc-aarch64-linux-gnu gnupg ca-certificates
 
 # Now that cert stuff is installed, get mono ready
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 RUN echo deb "https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list
 RUN apt update
-RUN apt install -y mono-devel
+RUN DEBIAN_FRONTEND=noninteractive apt install -y mono-devel
 
 # Config git just for kicks
 RUN git config --global user.name "Default Name"
