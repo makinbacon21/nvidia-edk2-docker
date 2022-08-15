@@ -6,6 +6,9 @@ FROM ubuntu:focal
 # https://github.com/NVIDIA/edk2-nvidia/wiki/Build
 # https://github.com/NVIDIA/edk2-nvidia/blob/main/Platform/NVIDIA/Jetson/Build.md
 
+# Set up env
+ENV TZ=Etc/UTC
+
 # Get deps
 RUN apt update
 RUN apt upgrade -y
