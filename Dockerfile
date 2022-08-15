@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 # Turns out NVIDIA's edk2 impl doesn't build right on newer distros
 
