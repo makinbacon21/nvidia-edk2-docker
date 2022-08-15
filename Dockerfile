@@ -11,6 +11,7 @@ ENV TZ=Etc/UTC
 
 # Get deps
 RUN apt-get -qq update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install apt-utils
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install -y build-essential uuid-dev git gcc python3 python3-setuptools python3-pip virtualenv wget \
       gcc-aarch64-linux-gnu gnupg ca-certificates
