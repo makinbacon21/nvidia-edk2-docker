@@ -1,10 +1,13 @@
-FROM ubuntu:focal
-
 # Turns out NVIDIA's edk2 impl doesn't build right on newer distros
 
 # Sources:
 # https://github.com/NVIDIA/edk2-nvidia/wiki/Build
 # https://github.com/NVIDIA/edk2-nvidia/blob/main/Platform/NVIDIA/Jetson/Build.md
+
+FROM ubuntu:focal
+
+ARG BRANCH
+ENV BRANCH=${BRANCH:-main}
 
 # Set up env
 ENV TZ=Etc/UTC
@@ -35,7 +38,7 @@ RUN ./install.py --user root --no-prompt
 
 # Grab NVIDIA manifest and setup env
 RUN edkrepo manifest-repos add nvidia https://github.com/NVIDIA/edk2-edkrepo-manifest.git main nvidia
-RUN edkrepo clone nvidia-uefi NVIDIA-Jetson main
+RUN edkrepo clone nvidia-uefi NVIDIA-Jetson ${BRANCH}
 WORKDIR /edkrepo/nvidia-uefi
 
 CMD [ "/bin/bash" ]
