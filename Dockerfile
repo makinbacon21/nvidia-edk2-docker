@@ -4,8 +4,10 @@
 # https://github.com/NVIDIA/edk2-nvidia/wiki/Build
 # https://github.com/NVIDIA/edk2-nvidia/blob/main/Platform/NVIDIA/Jetson/Build.md
 
-ARG ARCH=amd64
-FROM $ARCH/ubuntu:focal
+FROM --platform=$TARGETPLATFORM ubuntu:focal
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 ARG BRANCH=main
 ENV BRANCH=${BRANCH} ARCH=${ARCH}
@@ -19,7 +21,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install apt-utils > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq upgrade -y > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install -y build-essential uuid-dev git gcc python3 python3-setuptools python3-pip virtualenv wget \
       device-tree-compiler gnupg ca-certificates > /dev/null
-RUN DEBIAN_FRONTEND=noninteractive [ "${ARCH}" = "arm64v8" ] && apt-get -qq install -y gcc || apt-get -qq install -y gcc-aarch64-linux-gnu
+RUN DEBIAN_FRONTEND=noninteractive [ "${TARGETPLATFORM}" ~= "linux/arm64*" ] && apt-get -qq install -y gcc || apt-get -qq install -y gcc-aarch64-linux-gnu
 
 # Now that cert stuff is installed, get mono ready
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
