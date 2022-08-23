@@ -20,7 +20,7 @@ RUN apt-get -qq update > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install apt-utils > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq upgrade -y > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq install -y build-essential uuid-dev git gcc python3 python3-setuptools python3-pip virtualenv wget \
-      device-tree-compiler gnupg ca-certificates > /dev/null
+      acpica-tools device-tree-compiler gnupg ca-certificates > /dev/null
 RUN DEBIAN_FRONTEND=noninteractive [ "${TARGETPLATFORM}" ~= "linux/arm64*" ] && apt-get -qq install -y gcc || apt-get -qq install -y gcc-aarch64-linux-gnu
 
 # Now that cert stuff is installed, get mono ready
