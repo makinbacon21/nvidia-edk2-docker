@@ -19,8 +19,8 @@ env:
 
 
 jobs:
-  build-multiplatform:
 
+  build-multiplatform:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,13 +50,30 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build and push Docker image with Buildx (don't push on PR)
+      # Build and push CM-Shield Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        id: build-and-push
+      - name: Build and push CM-Shield Docker image
+        id: build-and-push-cm-shield
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
           platforms: linux/amd64,linux/arm64/v8
+          build-args: |
+            BRANCH=lineage-19.1
+            REPO=https://github.com/makinbacon21/edk2-edkrepo-manifest.git
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: makinbacon/nvidia-edk2-docker:lineage-19.1
+
+      # Build and push official NVIDIA Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push official NVIDIA Docker image
+        id: build-and-push-nvidia
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64/v8
+          build-args: |
+            BRANCH=main
+            REPO=https://github.com/NVIDIA/edk2-edkrepo-manifest.git
           push: ${{ github.event_name != 'pull_request' }}
           tags: makinbacon/nvidia-edk2-docker:main

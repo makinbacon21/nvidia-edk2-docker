@@ -10,7 +10,7 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
 ARG BRANCH=main
-ARG REPO="https://github.com/NVIDIA/edk2-edkrepo-manifest.git"
+ARG REPO=https://github.com/NVIDIA/edk2-edkrepo-manifest.git
 ENV BRANCH=${BRANCH} REPO=${REPO} ARCH=${ARCH}
 
 # Set up env
