@@ -10,7 +10,8 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
 ARG BRANCH=main
-ENV BRANCH=${BRANCH} ARCH=${ARCH}
+ARG REPO="https://github.com/NVIDIA/edk2-edkrepo-manifest.git"
+ENV BRANCH=${BRANCH} REPO=${REPO} ARCH=${ARCH}
 
 # Set up env
 ENV TZ=Etc/UTC
@@ -41,7 +42,7 @@ RUN tar xvf edkrepo-2.1.2.tar.gz
 RUN ./install.py --user root --no-prompt
 
 # Grab NVIDIA manifest and setup env
-RUN edkrepo manifest-repos add nvidia https://github.com/NVIDIA/edk2-edkrepo-manifest.git main nvidia
+RUN edkrepo manifest-repos add nvidia ${REPO} main nvidia
 RUN edkrepo clone nvidia-uefi NVIDIA-Jetson ${BRANCH}
 WORKDIR /edkrepo/nvidia-uefi
 
